@@ -1,0 +1,42 @@
+// tpc-1.cpp : Defines the entry point for the console application.
+//
+
+#include <conio.h>
+
+//algo
+f (n, k) = [0, k < 1 or n < 0
+			1, n = 0
+			f (n, k - 1) + f (n - a[k], k) else]
+			
+int CountCoin (int pCoinDen [], int pDenIndex, int pAmount)
+{
+	int total = 0;
+
+	// if amount less than 0, no solution exists
+	if (pAmount < 0)
+		return 0;
+	// if amount is equal 1, there is 1 solution
+	if (pAmount == 0)
+		return 1;
+
+	// If there are no coins and amount still exists then no solution
+	if (pDenIndex < 0 && pAmount >=1)
+		return 0;
+
+	return CountCoin (pCoinDen, pDenIndex - 1, pAmount) + CountCoin (pCoinDen, pDenIndex, pAmount - pCoinDen[pDenIndex-1]); 
+
+	return total;
+}
+
+
+int main(int argc, char * argv[])
+{
+	int den [] = {1, 2, 5, 10, 20, 50};
+	int amount = 50;
+	
+	printf ("No. of ways  = %d", CountCoin (den, (sizeof(den)/sizeof(int)), amount));
+
+	_getch();
+	return 0;
+}
+
