@@ -17,18 +17,22 @@ void FillSet(int ** pPlayers, std::set<int> set, int pPlayer, int pPlayerToLook)
 
 		// if player not in set, insert and go to its dependencies
 		it=set.find(pPlayers [pPlayerToLook][j]);
-		if (set.find (
-		// insert the element in set
-		set.insert();
-
 		
+		// it is not the set
+		if (it == set.end()) {
+			// insert the element in set
+			set.insert(pPlayers [pPlayerToLook][j]);
+			FillSet (pPlayers, set, pPlayer, pPlayers [pPlayerToLook][j]);
+		}
+	}
 }
 
 // This function fills all the dependencies
 void FillDependencies (int ** pPlayers, int pNumParticipants, int pLast, int pOwn)
 {
 	
-	// start inserting in it all its dependencies in a set
+	// no of players fr whose tournament can be fixed.
+	int playertour = 0;
 	
 	
 	for (int i = 0; i < pNumParticipants ; i++)
@@ -42,24 +46,13 @@ void FillDependencies (int ** pPlayers, int pNumParticipants, int pLast, int pOw
 			//inserting in set and filling further dependencies
 			set.insert(pPlayers[i][j]);
 
-			FillSet (set, i);
+			FillSet (pPlayers, set, i, pPlayers[i][j]);
 		}
 
-		//since the first is its own
-		for (int j = 1; j < pNumParticipants ; j++)
-		{
-			// I have initially set the players to true who can beat this player
-			// so just take those numbers and start
-			if (pPlayers [i][j] == true)
-			{
-
-				// go to that player and its dependencies
-				pPlayers [j] 
-				FillDependencies (pPlayers, pNumParticipants, j, i);
-				
-				
-			}  
-		}
+		// check if set contains pNumParticipants - 1, then we can set the tournament for him (excluding 1 for his own)
+		if (set.size() == pNumParticipants - 1)
+			++playertour;
+		
 	}
 }
 
