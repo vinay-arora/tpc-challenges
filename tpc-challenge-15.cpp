@@ -38,11 +38,17 @@ void FillDependencies (int ** pPlayers, int pNumParticipants, int pLast, int pOw
 	for (int i = 0; i < pNumParticipants ; i++)
 	{
 		std::set<int> set;
+		std::set<int>::iterator it;
 		
 		// inserting in the set who can lose by this player
 		// since the first line contains the num of players who can beat this person
 		for (int j = 1; j <= pPlayers[i][0]; j++)
 		{
+			// if player not in set, insert and go to its dependencies
+			it=set.find(pPlayers [i][j]);
+		
+		// it is not the set
+		if (it == set.end()) {
 			//inserting in set and filling further dependencies
 			set.insert(pPlayers[i][j]);
 
