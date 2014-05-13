@@ -33,7 +33,7 @@ void FillDependencies (int ** pPlayers, int pNumParticipants, int pLast, int pOw
 	
 	// no of players fr whose tournament can be fixed.
 	int playertour = 0;
-	
+	int * playerarr = new int[pNumParticipants]; // array of participants for whom tournament can be set
 	
 	for (int i = 0; i < pNumParticipants ; i++)
 	{
@@ -50,10 +50,17 @@ void FillDependencies (int ** pPlayers, int pNumParticipants, int pLast, int pOw
 		}
 
 		// check if set contains pNumParticipants - 1, then we can set the tournament for him (excluding 1 for his own)
-		if (set.size() == pNumParticipants - 1)
+		if (set.size() == pNumParticipants - 1) {
+			// player for whose tournament can be fixed
+			playerarr [playertour] = i;
 			++playertour;
-		
+		}
 	}
+
+	printf("\n\nTotal no. of players for whom tournament can be - %d", playertour);
+	printf("These are - \n");
+	for (int k = 0;k < playertour ; k++)
+		printf("\n%d", playerarr[k]);
 }
 
 
@@ -86,7 +93,7 @@ int main ()
 			  // start taking line by line input and start
 			int playernumwhocanbeatthisplayer = 0;
 
-			printf("Enter no. of players who can beat this player = ");
+			printf("Enter no. of players who can beat player %d= ", i+1);
 			scanf("%d",&playernumwhocanbeatthisplayer);
 			
 			arr[i] = new int [playernumwhocanbeatthisplayer+1];
